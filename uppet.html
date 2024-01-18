@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-	<link rel="shortcut icon" type="x-icon" href="img/cougar-clipart-bearcat.png">
+    <link
+      rel="shortcut icon"
+      type="x-icon"
+      href="img/cougar-clipart-bearcat.png"
+    />
     <meta http-equity="X-UA-Compatible" content="IE-Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pet Shop</title>
@@ -13,7 +17,6 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
       rel="stylesheet"
     />
-		
 
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
@@ -21,11 +24,11 @@
     <!-- My Style -->
 
     <link rel="stylesheet" href="css/style.css" />
-	<link rel="stylesheet" href="css/master.css"/>
+    <link rel="stylesheet" href="css/master.css" />
   </head>
 
   <body>
-   <!-- Navbar start -->
+    <!-- Navbar start -->
     <nav class="navbar">
       <a href="home.html" class="navbar-logo">Pet<span>Shop</span></a>
       <div class="navbar-nav">
@@ -52,7 +55,7 @@
       </div>
 
       <!-- Search form end -->
- <!-- shopping cart start -->
+      <!-- shopping cart start -->
       <div class="shopping-cart">
         <div class="cart-item">
           <img src="img/royalcanin1.png" alt="Product 1" />
@@ -83,68 +86,118 @@
       <!-- shopping cart end -->
     </nav>
     <!-- Navbar end -->
-	
-	<!-- upfeedback  section start -->
-	<section id="uppet" class="upfeedback ">
+
+    <!-- upfeedback  section start -->
+    <section id="uppet" class="upfeedback">
       <h2><span>Pet</span> Details</h2>
-      <p>
-        Share those cute and charming details about your pet for adoption.
-      </p>
+      <p>Share those cute and charming details about your pet for adoption.</p>
 
       <div class="row">
-
-    <div class="img">
-        <label for="file-input">
+        <div id="image-container" class="img">
+          <label for="file-input">
             <img src="img/Upload.png" alt="product 1" />
-        </label>
-        <input id="file-input" type="file" accept="image/jpeg, image/jpg, image/png" style="display: none;" />
-    </div>
+          </label>
+          <input
+            id="file-input"
+            type="file"
+            accept="image/jpeg, image/jpg, image/png"
+            style="display: none"
+            onchange="previewImage()"
+          />
+        </div>
 
-        <form action="">
+        <form id="adoption-form">
           <div class="input-group">
-            <input type="text" placeholder="Name" />
+            <input type="text" id="name-input" placeholder="Name" />
           </div>
           <div class="input-group">
-            <input type="text" placeholder="Title" />
+            <input type="text" id="title-input" placeholder="Title" />
           </div>
           <div class="input-group">
-            <input type="text" placeholder="Details (breed,age,etc.)" />
+            <input type="text" id="message-input" placeholder="Message" />
           </div>
-            <button type="button" class="btn" onclick="submitForm()">Upload</button>
-            </form>
+          <button type="button" class="btn" onclick="validateAndSubmit()">
+            Upload
+          </button>
+        </form>
 
-                <div id="popup" class="popup">
-                  <h2 style="font-size: 1.5em;">Your adoption has been uploaded.</h2>
-                  <p style="color: #fff; font-size: 1.2em;">Click "OK" to return to the home page</p>
-                  <button type="button" onclick="closePopupAndNavigate()">OK</button>
-                </div>
+        <div id="popup" class="popup">
+          <h2 style="font-size: 1.5em">Your adoption has been uploaded.</h2>
+          <p style="color: #fff; font-size: 1.2em">
+            Click "OK" to return to the home page
+          </p>
+          <button type="button" onclick="closePopupAndNavigate()">OK</button>
+        </div>
+      </div>
 
-            <script>
-              let popup = document.getElementById("popup");
+      <script>
+        let popup = document.getElementById("popup");
 
-                function openPopup() {
-                  popup.classList.add("open-popup");
-                }
+        function openPopup() {
+          popup.classList.add("open-popup");
+        }
 
-                function closePopupAndNavigate() {
-                  popup.classList.remove("open-popup");
-                  window.location.href = 'home.html'; // Fix: Add quotes around the URL
-                }
+        function closePopupAndNavigate() {
+          popup.classList.remove("open-popup");
+          window.location.href = "home.html";
+        }
 
-                function submitForm() {
-                  openPopup();
-                }
-            </script>
+        function previewImage() {
+          let fileInput = document.getElementById("file-input");
+          let selectedFile = fileInput.files[0];
+          let imgContainer = document.getElementById("image-container");
+
+          if (selectedFile) {
+            // Create and append a new image element
+            let imgElement = new Image();
+            imgElement.src = URL.createObjectURL(selectedFile);
+            imgElement.alt = "Selected Image";
+
+            // Clear existing content before appending the new image
+            imgContainer.innerHTML = "";
+            imgContainer.appendChild(imgElement);
+          } else {
+            alert("Please select an image before submitting.");
+          }
+        }
+
+        function validateAndSubmit() {
+          let nameInput = document.getElementById("name-input");
+          let titleInput = document.getElementById("title-input");
+          let messageInput = document.getElementById("message-input");
+
+          if (nameInput.value && titleInput.value && messageInput.value) {
+            // Only submit the form and open the popup if all required fields are filled
+            submitForm();
+          } else {
+            alert("Please fill in all the details before submitting.");
+          }
+        }
+
+        function submitForm() {
+          // Handle the form submission logic here
+          // This is where you can send the data to your server, for example
+          openPopup();
+        }
+      </script>
     </section>
 
     <!-- upfeedback section end -->
-	
+
     <!-- Footer start -->
     <footer>
       <div class="socials">
-        <a href="https://www.instagram.com/umtofficial/" target="_blank"><i data-feather="instagram"></i></a>
-        <a href="https://twitter.com/UMT_Official" target="_blank"><i data-feather="twitter"></i></a>
-        <a href="https://web.facebook.com/OfficialUMT/?_rdc=1&_rdr" target="_blank"><i data-feather="facebook"></i></a>
+        <a href="https://www.instagram.com/umtofficial/" target="_blank"
+          ><i data-feather="instagram"></i
+        ></a>
+        <a href="https://twitter.com/UMT_Official" target="_blank"
+          ><i data-feather="twitter"></i
+        ></a>
+        <a
+          href="https://web.facebook.com/OfficialUMT/?_rdc=1&_rdr"
+          target="_blank"
+          ><i data-feather="facebook"></i
+        ></a>
       </div>
 
       <div class="links">
@@ -202,4 +255,3 @@
     <script src="js/script.js"></script>
   </body>
 </html>
-
